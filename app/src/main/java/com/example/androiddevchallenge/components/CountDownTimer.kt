@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -55,7 +56,7 @@ fun SetTimeComponent() {
 @Composable
 fun CounterTimeInputBox(){
     var text by remember{ mutableStateOf("") }
-    val placeHolderText = "Enter"
+    val placeHolderText = "Enter Time"
     val textStyle = TextStyle(
         color = Color.White,
         fontFamily = appTextFont,
@@ -68,7 +69,7 @@ fun CounterTimeInputBox(){
             value = text,
             onValueChange = { text = it },
             textStyle = textStyle,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
             modifier = Modifier.fillMaxWidth().heightIn(64.dp),
             colors= outlinedTextFieldColors(textColor = Color.White),
             placeholder = {
