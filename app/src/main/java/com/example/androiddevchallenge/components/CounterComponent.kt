@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.components
 
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import com.example.androiddevchallenge.R
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 
-val appTextFont = FontFamily(Font(resId = R.font.steelfish))
+@Composable
+fun CounterComponent(targetTime: Int, currentTime: Int) {
+    Column {
+        Text(text = "Target Time" + targetTime)
+        Text(text = "Current Time" + currentTime)
+    }
+}

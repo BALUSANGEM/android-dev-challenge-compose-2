@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge
 
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import com.example.androiddevchallenge.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-val appTextFont = FontFamily(Font(resId = R.font.steelfish))
+fun timer(seconds: Int): Flow<Int> = flow {
+    for (s in ((seconds - 1) downTo 0)) {
+        delay(1000L)
+        emit(s)
+    }
+}

@@ -53,7 +53,6 @@ fun MyApp() {
     }
 }
 
-
 @ExperimentalAnimationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable

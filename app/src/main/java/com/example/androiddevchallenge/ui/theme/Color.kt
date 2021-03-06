@@ -22,7 +22,6 @@ val purple500 = Color(0xFF6200EE)
 val purple700 = Color(0xFF3700B3)
 val teal200 = Color(0xFF03DAC5)
 
-
 val counterBlueDark = Color(0xFF11295A)
 val counterBlueLight = Color(0xFF02192D)
 val counterTextDarkBlue = Color(0xFF12326E)
