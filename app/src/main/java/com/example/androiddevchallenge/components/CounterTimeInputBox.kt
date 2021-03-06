@@ -25,13 +25,10 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.androiddevchallenge.ui.theme.appTextFont
+import com.example.androiddevchallenge.ui.theme.whiteTextStyle
 
 @Composable
 fun CounterTimeInputBox(
@@ -39,12 +36,6 @@ fun CounterTimeInputBox(
     placeHolderText: String = "Enter Time",
     onTextChange: (String) -> Unit
 ) {
-    val textStyle = TextStyle(
-        color = Color.White,
-        fontFamily = appTextFont,
-        fontSize = 48.sp,
-        textAlign = TextAlign.Center,
-    )
     Column(
         modifier = Modifier
             .fillMaxWidth(fraction = 0.6f)
@@ -52,12 +43,12 @@ fun CounterTimeInputBox(
         OutlinedTextField(
             value = inputText,
             onValueChange = { onTextChange(it) },
-            textStyle = textStyle,
+            textStyle = whiteTextStyle,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
             modifier = Modifier.fillMaxWidth().heightIn(64.dp),
             colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.White),
             placeholder = {
-                Text(text = placeHolderText, style = textStyle)
+                Text(text = placeHolderText, style = whiteTextStyle)
             },
             maxLines = 1
         )

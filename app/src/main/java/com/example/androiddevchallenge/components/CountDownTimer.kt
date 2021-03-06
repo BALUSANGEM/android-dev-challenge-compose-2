@@ -68,6 +68,7 @@ fun CountDownTimerScreen(countDownViewModel: CountDownViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
+
         Crossfade(targetState = screenState) {
             Text(
                 text = screenTexts.header,
@@ -76,16 +77,14 @@ fun CountDownTimerScreen(countDownViewModel: CountDownViewModel) {
             )
         }
 
-        Crossfade(targetState = screenState) { screen ->
-            when (screen) {
-                ScreenState.SET_TIME -> {
-                    CounterTimeInputBox(inputBoxText) {
-                        countDownViewModel.setInputBoxText(it)
-                    }
+        when (screenState) {
+            ScreenState.SET_TIME -> {
+                CounterTimeInputBox(inputBoxText) {
+                    countDownViewModel.setInputBoxText(it)
                 }
-                ScreenState.SHOW_TIMER -> {
-                    CounterComponent(targetTime, currentTime)
-                }
+            }
+            ScreenState.SHOW_TIMER -> {
+                CounterComponent(targetTime, currentTime)
             }
         }
 
