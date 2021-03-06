@@ -16,8 +16,10 @@
 package com.example.androiddevchallenge
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,8 +27,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.components.BlueAppBackground
 import com.example.androiddevchallenge.components.CountDownTimerScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.viewmodel.CountDownViewModel
 
 class MainActivity : AppCompatActivity() {
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,23 +41,20 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun MyApp() {
+    val countDownViewModel = CountDownViewModel()
     BlueAppBackground(
         modifier = Modifier.fillMaxSize()
     ) {
-        CountDownTimerScreen()
+        Log.d("SCREENSTATE", "Loading")
+        CountDownTimerScreen(countDownViewModel)
     }
 }
 
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
-    }
-}
 
+@ExperimentalAnimationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {

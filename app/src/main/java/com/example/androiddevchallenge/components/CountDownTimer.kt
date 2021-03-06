@@ -1,94 +1,72 @@
 package com.example.androiddevchallenge.components
 
-import androidx.compose.foundation.border
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults.outlinedTextFieldColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.androiddevchallenge.MyApp
+import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.appTextFont
 import com.example.androiddevchallenge.ui.theme.counterTextDarkBlue
-import com.example.androiddevchallenge.ui.theme.counterTextLightBlue
+import com.example.androiddevchallenge.viewmodel.CountDownViewModel
+import androidx.compose.runtime.livedata.observeAsState
+import com.example.androiddevchallenge.viewmodel.firstTexts
 
-@Composable
-fun CountDownTimerScreen(){
-    SetTimeComponent()
+enum class ScreenState {
+    SET_TIME,
+    SHOW_TIMER
 }
 
+data class ScreenTexts(
+    val header: String = "",
+    val buttonText: String = "",
+    val inputPlaceHolder: String =""
+)
 
+@ExperimentalAnimationApi
 @Composable
-fun SetTimeComponent() {
+fun CountDownTimerScreen(countDownViewModel: CountDownViewModel){
+    val screenState: ScreenState by countDownViewModel.screenState.observeAsState(ScreenState.SET_TIME)
+    val screenTexts: ScreenTexts by countDownViewModel.screenTexts.observeAsState(firstTexts)
+    Log.d("SCREENSTATE", screenTexts.toString())
+    Log.d("SCREENSTATE", ""+screenState.toString())
     Column(modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Text(
-            text = "SET TIME (In Seconds)",
-            fontFamily = appTextFont,
-            fontSize = 48.sp,
+            text = screenTexts.header,
+            modifier = Modifier.animateContentSize(),
+            fontFamily = appTextFont, fontSize = 48.sp,
             color = counterTextDarkBlue
         )
-        CounterTimeInputBox()
-        CountDownButton("START")
+        AnimatedVisibility(
+            visible = screenState === ScreenState.SET_TIME) {
+            CounterTimeInputBox()
+        }
+        CountDownButton(screenTexts.buttonText) {
+            countDownViewModel.changeScreenState()
+        }
     }
 }
 
+@ExperimentalAnimationApi
+@Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
-fun CounterTimeInputBox(){
-    var text by remember{ mutableStateOf("") }
-    val placeHolderText = "Enter Time"
-    val textStyle = TextStyle(
-        color = Color.White,
-        fontFamily = appTextFont,
-        fontSize = 48.sp,
-        textAlign = TextAlign.Center,
-    )
-    Column(modifier = Modifier
-        .fillMaxWidth(fraction = 0.6f)) {
-        OutlinedTextField(
-            value = text,
-            onValueChange = { text = it },
-            textStyle = textStyle,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-            modifier = Modifier.fillMaxWidth().heightIn(64.dp),
-            colors= outlinedTextFieldColors(textColor = Color.White),
-            placeholder = {
-                Text(text = placeHolderText, style = textStyle)},
-            maxLines = 1
-        )
+fun LightPreview() {
+    MyTheme {
+        MyApp()
     }
-}
-
-@Composable
-fun CountDownButton(label: String){
-    BlueAppBackground(
-        modifier = Modifier
-            .border(1.dp, counterTextDarkBlue, CircleShape)
-            .sizeIn(minWidth = 64.dp, minHeight = 64.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ){
-        Text(text = label, color= counterTextLightBlue, textAlign = TextAlign.Center)
-    }
-
 }
