@@ -15,7 +15,6 @@
  */
 package com.example.androiddevchallenge.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.KeyboardOptions
@@ -36,21 +35,17 @@ fun CounterTimeInputBox(
     placeHolderText: String = "Enter Time",
     onTextChange: (String) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth(fraction = 0.6f)
-    ) {
-        OutlinedTextField(
-            value = inputText,
-            onValueChange = { onTextChange(it) },
-            textStyle = whiteTextStyle,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-            modifier = Modifier.fillMaxWidth().heightIn(64.dp),
-            colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.White),
-            placeholder = {
-                Text(text = placeHolderText, style = whiteTextStyle)
-            },
-            maxLines = 1
-        )
-    }
+
+    OutlinedTextField(
+        value = inputText,
+        onValueChange = { onTextChange(it) },
+        textStyle = whiteTextStyle,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+        modifier = Modifier.fillMaxWidth(fraction = 0.6f).heightIn(64.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.White),
+        placeholder = {
+            Text(text = placeHolderText, style = whiteTextStyle)
+        },
+        maxLines = 1
+    )
 }

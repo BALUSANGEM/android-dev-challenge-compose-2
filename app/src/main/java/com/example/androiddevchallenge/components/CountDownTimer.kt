@@ -33,19 +33,21 @@ import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.MyApp
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.appTextFont
-import com.example.androiddevchallenge.ui.theme.counterTextDarkBlue
+import com.example.androiddevchallenge.ui.theme.relaxBlueDarker
+import com.example.androiddevchallenge.ui.theme.whiteTextStyle
 import com.example.androiddevchallenge.viewmodel.CountDownViewModel
 import com.example.androiddevchallenge.viewmodel.firstTexts
 
 enum class ScreenState {
     SET_TIME,
-    SHOW_TIMER
+    SHOW_TIMER,
+    COMPLETED
 }
 
 data class ScreenTexts(
     val header: String = "",
     val buttonText: String = "",
-    val inputPlaceHolder: String = ""
+    val placeholder: String = ""
 )
 
 @ExperimentalAnimationApi
@@ -73,7 +75,7 @@ fun CountDownTimerScreen(countDownViewModel: CountDownViewModel) {
             Text(
                 text = screenTexts.header,
                 fontFamily = appTextFont, fontSize = 48.sp,
-                color = counterTextDarkBlue
+                color = relaxBlueDarker
             )
         }
 
@@ -85,6 +87,9 @@ fun CountDownTimerScreen(countDownViewModel: CountDownViewModel) {
             }
             ScreenState.SHOW_TIMER -> {
                 CounterComponent(targetTime, currentTime)
+            }
+            ScreenState.COMPLETED -> {
+                Text(text = screenTexts.placeholder, style = whiteTextStyle)
             }
         }
 

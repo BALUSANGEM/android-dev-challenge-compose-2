@@ -37,7 +37,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androiddevchallenge.ui.theme.counterTextDarkBlue
+import com.example.androiddevchallenge.ui.theme.relaxBlueDarker
 import com.example.androiddevchallenge.ui.theme.whiteTextStyle
 import kotlin.math.PI
 import kotlin.math.cos
@@ -83,7 +83,7 @@ fun CounterComponent(targetTime: Int, currentTime: Int) {
                 withTransform({
                     translate(left = -125f, top = -125f)
                 }) {
-                    drawPath(createPath(), style = Stroke(width = pathWidth), alpha = 1 - (pathWidth / 10), color = counterTextDarkBlue)
+                    drawPath(createPath(), style = Stroke(width = pathWidth), alpha = 1 - (pathWidth / 10), color = relaxBlueDarker)
                 }
             }
         )

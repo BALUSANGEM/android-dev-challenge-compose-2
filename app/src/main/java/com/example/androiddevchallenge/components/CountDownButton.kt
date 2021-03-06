@@ -26,14 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.ui.theme.counterTextDarkBlue
 import com.example.androiddevchallenge.ui.theme.counterTextLightBlue
+import com.example.androiddevchallenge.ui.theme.relaxBlueDarker
 
 @Composable
 fun CountDownButton(label: String, onClick: () -> Unit) {
     BlueAppBackground(
         modifier = Modifier
-            .border(1.dp, counterTextDarkBlue, CircleShape)
+            .border(1.dp, relaxBlueDarker, CircleShape)
             .sizeIn(minWidth = 64.dp, minHeight = 64.dp)
             .clickable { onClick() },
         horizontalAlignment = Alignment.CenterHorizontally,

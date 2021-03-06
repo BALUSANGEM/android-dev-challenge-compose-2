@@ -23,8 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TileMode
-import com.example.androiddevchallenge.ui.theme.counterBlueDark
-import com.example.androiddevchallenge.ui.theme.counterBlueLight
+import com.example.androiddevchallenge.ui.theme.relaxBlueDark
+import com.example.androiddevchallenge.ui.theme.relaxBlueLight
 
 @Composable
 fun BlueAppBackground(
@@ -37,7 +37,7 @@ fun BlueAppBackground(
         modifier = modifier
             .background(
                 brush = Brush.radialGradient(
-                    listOf(counterBlueDark, counterBlueLight),
+                    listOf(relaxBlueLight, relaxBlueDark),
                     tileMode = TileMode.Clamp
                 )
             ),

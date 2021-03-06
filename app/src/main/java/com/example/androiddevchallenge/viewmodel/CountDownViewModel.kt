@@ -34,6 +34,10 @@ val secondTexts = ScreenTexts(
     "JUST RELAX", "STOP"
 )
 
+val thirdTexts = ScreenTexts(
+    "YOU ARE DONE", "AGAIN", "NOW YOU ARE RELAXED"
+)
+
 class CountDownViewModel : ViewModel() {
 
     private val screenStateLiveData: MutableLiveData<ScreenState> = MutableLiveData(ScreenState.SET_TIME)
@@ -60,9 +64,13 @@ class CountDownViewModel : ViewModel() {
                 startTimer()
             }
             ScreenState.SHOW_TIMER -> {
+                screenStateLiveData.value = ScreenState.COMPLETED
+                screenTextsLiveData.value = thirdTexts
+                stopTimer()
+            }
+            ScreenState.COMPLETED -> {
                 screenStateLiveData.value = ScreenState.SET_TIME
                 screenTextsLiveData.value = firstTexts
-                stopTimer()
             }
             else -> {}
         }
@@ -77,18 +85,23 @@ class CountDownViewModel : ViewModel() {
     }
 
     private var counterJob: Job? = null
-    fun startTimer() {
+    private fun startTimer() {
         counterJob?.cancel()
         targetCountDownTime.value?.let {
+            currentCountDownTimeLiveData.value = it
             counterJob = timer(it)
                 .onEach { currentTime ->
                     currentCountDownTimeLiveData.value = currentTime
+                    if (currentTime == 0) {
+                        changeScreenState()
+                    }
                 }
                 .launchIn(viewModelScope)
         }
     }
 
-    fun stopTimer() {
+    private fun stopTimer() {
+        currentCountDownTimeLiveData.value = 0
         counterJob?.cancel()
     }
 }
